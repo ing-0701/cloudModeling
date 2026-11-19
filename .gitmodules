@@ -1,0 +1,3 @@
+[submodule "ofxPaintCore"]
+	path = ofxPaintCore
+	url = https://github.com/ing-0701/ofxPaintCore.git
