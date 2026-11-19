@@ -82,7 +82,7 @@
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);..\..\..\addons\ofxGui\src;..\..\..\addons\ofxPaintCore\src</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);..\..\..\addons\ofxGui\src;ofxPaintCore\src</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <ObjectFileName>$(IntDir)\Build\%(RelativeDir)\$(Configuration)\</ObjectFileName>
@@ -127,7 +127,7 @@
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);..\..\..\addons\ofxGui\src;..\..\..\addons\ofxPaintCore\src</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);..\..\..\addons\ofxGui\src;ofxPaintCore\src</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
       <ObjectFileName>$(IntDir)\Build\%(RelativeDir)\$(Configuration)\</ObjectFileName>
       <LanguageStandard>stdcpplatest</LanguageStandard>
@@ -226,6 +226,7 @@
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ofxPaintCore\src\ColorPicker.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\ofApp.cpp" />
     <ClCompile Include="..\..\..\addons\ofxGui\src\ofxBaseGui.cpp" />
@@ -238,13 +239,14 @@
     <ClCompile Include="..\..\..\addons\ofxGui\src\ofxSlider.cpp" />
     <ClCompile Include="..\..\..\addons\ofxGui\src\ofxSliderGroup.cpp" />
     <ClCompile Include="..\..\..\addons\ofxGui\src\ofxToggle.cpp" />
-    <ClCompile Include="..\..\..\addons\ofxPaintCore\src\Brush.cpp" />
-    <ClCompile Include="..\..\..\addons\ofxPaintCore\src\CanvasRenderer.cpp" />
-    <ClCompile Include="..\..\..\addons\ofxPaintCore\src\PaintEngine.cpp" />
-    <ClCompile Include="..\..\..\addons\ofxPaintCore\src\PaintLayer.cpp" />
-    <ClCompile Include="..\..\..\addons\ofxPaintCore\src\StrokeSampler.cpp" />
+    <ClCompile Include="ofxPaintCore\src\Brush.cpp" />
+    <ClCompile Include="ofxPaintCore\src\CanvasRenderer.cpp" />
+    <ClCompile Include="ofxPaintCore\src\PaintEngine.cpp" />
+    <ClCompile Include="ofxPaintCore\src\PaintLayer.cpp" />
+    <ClCompile Include="ofxPaintCore\src\StrokeSampler.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ofxPaintCore\src\ColorPicker.h" />
     <ClInclude Include="src\ofApp.h" />
     <ClInclude Include="..\..\..\addons\ofxGui\src\ofxBaseGui.h" />
     <ClInclude Include="..\..\..\addons\ofxGui\src\ofxButton.h" />
@@ -258,13 +260,13 @@
     <ClInclude Include="..\..\..\addons\ofxGui\src\ofxSlider.h" />
     <ClInclude Include="..\..\..\addons\ofxGui\src\ofxSliderGroup.h" />
     <ClInclude Include="..\..\..\addons\ofxGui\src\ofxToggle.h" />
-    <ClInclude Include="..\..\..\addons\ofxPaintCore\src\Brush.h" />
-    <ClInclude Include="..\..\..\addons\ofxPaintCore\src\CanvasRenderer.h" />
-    <ClInclude Include="..\..\..\addons\ofxPaintCore\src\HistoryAction.h" />
-    <ClInclude Include="..\..\..\addons\ofxPaintCore\src\HistoryManager.h" />
-    <ClInclude Include="..\..\..\addons\ofxPaintCore\src\PaintEngine.h" />
-    <ClInclude Include="..\..\..\addons\ofxPaintCore\src\PaintLayer.h" />
-    <ClInclude Include="..\..\..\addons\ofxPaintCore\src\StrokeSampler.h" />
+    <ClInclude Include="ofxPaintCore\src\Brush.h" />
+    <ClInclude Include="ofxPaintCore\src\CanvasRenderer.h" />
+    <ClInclude Include="ofxPaintCore\src\HistoryAction.h" />
+    <ClInclude Include="ofxPaintCore\src\HistoryManager.h" />
+    <ClInclude Include="ofxPaintCore\src\PaintEngine.h" />
+    <ClInclude Include="ofxPaintCore\src\PaintLayer.h" />
+    <ClInclude Include="ofxPaintCore\src\StrokeSampler.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="$(OF_ROOT)\libs\openFrameworksCompiled\project\vs\openframeworksLib.vcxproj">

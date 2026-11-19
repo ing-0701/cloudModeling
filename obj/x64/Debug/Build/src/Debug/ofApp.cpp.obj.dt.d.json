@@ -657,11 +657,12 @@
             "c:\\users\\inage\\documents\\of_v0.12.1_vs_64_release\\of_v0.12.1_vs_64_release\\addons\\ofxgui\\src\\ofxlabel.h",
             "c:\\users\\inage\\documents\\of_v0.12.1_vs_64_release\\of_v0.12.1_vs_64_release\\addons\\ofxgui\\src\\ofxcolorpicker.h",
             "c:\\users\\inage\\documents\\of_v0.12.1_vs_64_release\\of_v0.12.1_vs_64_release\\addons\\ofxgui\\src\\ofxpanel.h",
-            "c:\\users\\inage\\documents\\of_v0.12.1_vs_64_release\\of_v0.12.1_vs_64_release\\addons\\ofxpaintcore\\src\\paintengine.h",
-            "c:\\users\\inage\\documents\\of_v0.12.1_vs_64_release\\of_v0.12.1_vs_64_release\\addons\\ofxpaintcore\\src\\brush.h",
-            "c:\\users\\inage\\documents\\of_v0.12.1_vs_64_release\\of_v0.12.1_vs_64_release\\addons\\ofxpaintcore\\src\\strokesampler.h",
-            "c:\\users\\inage\\documents\\of_v0.12.1_vs_64_release\\of_v0.12.1_vs_64_release\\addons\\ofxpaintcore\\src\\paintlayer.h",
-            "c:\\users\\inage\\documents\\of_v0.12.1_vs_64_release\\of_v0.12.1_vs_64_release\\addons\\ofxpaintcore\\src\\canvasrenderer.h"
+            "c:\\users\\inage\\documents\\of_v0.12.1_vs_64_release\\of_v0.12.1_vs_64_release\\apps\\myapps\\cloudmodeling\\ofxpaintcore\\src\\paintengine.h",
+            "c:\\users\\inage\\documents\\of_v0.12.1_vs_64_release\\of_v0.12.1_vs_64_release\\apps\\myapps\\cloudmodeling\\ofxpaintcore\\src\\brush.h",
+            "c:\\users\\inage\\documents\\of_v0.12.1_vs_64_release\\of_v0.12.1_vs_64_release\\apps\\myapps\\cloudmodeling\\ofxpaintcore\\src\\strokesampler.h",
+            "c:\\users\\inage\\documents\\of_v0.12.1_vs_64_release\\of_v0.12.1_vs_64_release\\apps\\myapps\\cloudmodeling\\ofxpaintcore\\src\\paintlayer.h",
+            "c:\\users\\inage\\documents\\of_v0.12.1_vs_64_release\\of_v0.12.1_vs_64_release\\apps\\myapps\\cloudmodeling\\ofxpaintcore\\src\\canvasrenderer.h",
+            "c:\\users\\inage\\documents\\of_v0.12.1_vs_64_release\\of_v0.12.1_vs_64_release\\apps\\myapps\\cloudmodeling\\ofxpaintcore\\src\\colorpicker.h"
         ],
         "ImportedModules": [],
         "ImportedHeaderUnits": []
