@@ -1,0 +1,141 @@
+<?xml version="1.0"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<ItemGroup>
+		<ClCompile Include="src\ofApp.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="src\main.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxGui\src\ofxBaseGui.cpp">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxGui\src\ofxButton.cpp">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxGui\src\ofxColorPicker.cpp">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxGui\src\ofxGuiGroup.cpp">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxGui\src\ofxInputField.cpp">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxGui\src\ofxLabel.cpp">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxGui\src\ofxPanel.cpp">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxGui\src\ofxSlider.cpp">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxGui\src\ofxSliderGroup.cpp">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxGui\src\ofxToggle.cpp">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxPaintCore\src\Brush.cpp">
+			<Filter>addons\ofxPaintCore\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxPaintCore\src\CanvasRenderer.cpp">
+			<Filter>addons\ofxPaintCore\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxPaintCore\src\PaintEngine.cpp">
+			<Filter>addons\ofxPaintCore\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxPaintCore\src\PaintLayer.cpp">
+			<Filter>addons\ofxPaintCore\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxPaintCore\src\StrokeSampler.cpp">
+			<Filter>addons\ofxPaintCore\src</Filter>
+		</ClCompile>
+	</ItemGroup>
+	<ItemGroup>
+		<Filter Include="src">
+			<UniqueIdentifier>{d8376475-7454-4a24-b08a-aac121d3ad6f}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons">
+			<UniqueIdentifier>{16C707AF--F1B-F-49-1F-B-204-55BFA4ABEC0F}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxGui">
+			<UniqueIdentifier>{8869D76D--84C-E-48-22-8-24C-5E8DE59B29A9}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxGui\src">
+			<UniqueIdentifier>{AFD508C8--903-F-4E-9C-8-7A7-DD26D7FA426D}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxPaintCore">
+			<UniqueIdentifier>{77B95141--EA8-9-46-46-A-FDC-09CB20D7ACE8}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxPaintCore\src">
+			<UniqueIdentifier>{4069C7B5--9CA-7-4F-BF-9-2DF-827E5B5343A0}</UniqueIdentifier>
+		</Filter>
+	</ItemGroup>
+	<ItemGroup>
+		<ClInclude Include="src\ofApp.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxGui\src\ofxBaseGui.h">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxGui\src\ofxButton.h">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxGui\src\ofxColorPicker.h">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxGui\src\ofxGui.h">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxGui\src\ofxGuiGroup.h">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxGui\src\ofxGuiUtils.h">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxGui\src\ofxInputField.h">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxGui\src\ofxLabel.h">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxGui\src\ofxPanel.h">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxGui\src\ofxSlider.h">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxGui\src\ofxSliderGroup.h">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxGui\src\ofxToggle.h">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxPaintCore\src\Brush.h">
+			<Filter>addons\ofxPaintCore\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxPaintCore\src\CanvasRenderer.h">
+			<Filter>addons\ofxPaintCore\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxPaintCore\src\HistoryAction.h">
+			<Filter>addons\ofxPaintCore\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxPaintCore\src\HistoryManager.h">
+			<Filter>addons\ofxPaintCore\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxPaintCore\src\PaintEngine.h">
+			<Filter>addons\ofxPaintCore\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxPaintCore\src\PaintLayer.h">
+			<Filter>addons\ofxPaintCore\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxPaintCore\src\StrokeSampler.h">
+			<Filter>addons\ofxPaintCore\src</Filter>
+		</ClInclude>
+	</ItemGroup>
+	<ItemGroup>
+		<ResourceCompile Include="icon.rc" />
+	</ItemGroup>
+</Project>
