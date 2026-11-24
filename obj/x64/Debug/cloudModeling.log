@@ -1,4 +1,7 @@
 ﻿  モジュール依存関係のソースをスキャンしています...
+  PaintDocument.cpp
+  PaintSession.cpp
+  main.cpp
   ofApp.cpp
 LINK : warning LNK4075: /INCREMENTAL は /FORCE の指定によって無視されます。
      ライブラリ bin\cloudModeling_debug.lib とオブジェクト bin\cloudModeling_debug.exp を作成中
