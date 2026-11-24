@@ -1,7 +1,7 @@
 {
     "Version": "1.2",
     "Data": {
-        "Source": "c:\\users\\inage\\documents\\of_v0.12.1_vs_64_release\\of_v0.12.1_vs_64_release\\addons\\ofxpaintcore\\src\\brush.h",
+        "Source": "c:\\users\\inage\\documents\\of_v0.12.1_vs_64_release\\of_v0.12.1_vs_64_release\\apps\\myapps\\cloudmodeling\\ofxpaintcore\\src\\brush.h",
         "ProvidedModule": "",
         "Includes": [
             "c:\\users\\inage\\documents\\of_v0.12.1_vs_64_release\\of_v0.12.1_vs_64_release\\libs\\openframeworks\\ofmain.h",

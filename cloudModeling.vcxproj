@@ -227,6 +227,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ofxPaintCore\src\ColorPicker.cpp" />
+    <ClCompile Include="ofxPaintCore\src\PaintDocument.cpp" />
+    <ClCompile Include="ofxPaintCore\src\PaintSession.cpp" />
+    <ClCompile Include="ofxPaintCore\src\PaintSettings.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\ofApp.cpp" />
     <ClCompile Include="..\..\..\addons\ofxGui\src\ofxBaseGui.cpp" />
@@ -246,7 +249,12 @@
     <ClCompile Include="ofxPaintCore\src\StrokeSampler.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ofxPaintCore\src\CanvasView.h" />
     <ClInclude Include="ofxPaintCore\src\ColorPicker.h" />
+    <ClInclude Include="ofxPaintCore\src\LayerExtension.h" />
+    <ClInclude Include="ofxPaintCore\src\PaintEditor.h" />
+    <ClInclude Include="ofxPaintCore\src\PaintSession.h" />
+    <ClInclude Include="ofxPaintCore\src\PaintSettings.h" />
     <ClInclude Include="src\ofApp.h" />
     <ClInclude Include="..\..\..\addons\ofxGui\src\ofxBaseGui.h" />
     <ClInclude Include="..\..\..\addons\ofxGui\src\ofxButton.h" />

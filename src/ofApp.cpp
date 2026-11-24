@@ -2,75 +2,56 @@
 
 //--------------------------------------------------------------
 void ofApp::setup() {
-	ofSetWindowShape(1100, 740);
+	ofLogToConsole();
+
+	ofSetWindowTitle("Cloud Modeling - Paint");
+	ofSetWindowShape(1360, 900);
 	ofSetVerticalSync(true);
 
-	ofFbo::Settings settings;
-	settings.width = 800;
-	settings.height = 700;
-	settings.internalformat = GL_RGBA;
-	settings.useDepth = false;
-	settings.useStencil = false;
-	settings.numSamples = 0;
+	// GUI作成前にブラシの初期値を設定する。
+	auto settings = editor.paint.getBrushSettings();
 
-	canvas.allocate(settings);
-	canvas.begin();
-	ofClear(0, 0, 0, 0);
-	canvas.end();
+	settings.size = 2.4f; // 直径120px
+	settings.eraserSize = 2.4f; // 消しゴムも初期直径120px
+	settings.color = ofColor(255, 255, 255, 128);
+	settings.isPen = true;
+	settings.eraserAlpha = 128.0f;
+	settings.angleDegrees = 0.0f;
+	settings.randomAngleDegrees = 180.0f;
+	settings.spacingPx = 36.0f;
 
-	engine.allocateStrokeBuffers(settings);
-	gui.setup("Cloud Brush");
-	gui.setPosition(10, 20);
+	editor.paint.setBrushSettings(settings);
+	editor.setup();
 
-	gui.add(brushWidth.set("Width(px)", 120.0f, 10.0f, 400.0f));
-	gui.add(brushOpacity.set("Opacity", 0.5f, 0.0f, 1.0f));
-	gui.add(brushSpacing.set("Spacing / width", 0.3f, 0.05f, 2.0f));
-	gui.add(backgroundGray.set("Background", 100, 0, 255));
+	// 初期直径120px、最小5px、最大400px。
+	editor.setBrushSizeRange(2.4f, 0.1f, 8.0f);
 
-	gui.setWidthElements(256);
-	colorPicker.setup(colorPickerRect.x, colorPickerRect.y);
+	cloudStampLoaded = cloudStamp.load("cloudTexture1.png");
 
-	stampLoaded = cloudStamp.load("cloudTexture1.png");
-	if (!stampLoaded) {
-		ofLogError("cloudModeling") << "Failed to load bin/data/cloudTexture1.png";
-		return;
+	if (!cloudStampLoaded) {
+		ofLogError("cloudModeling")
+			<< "Failed to load bin/data/cloudTexture1.png";
 	}
 
-	cloudStamp.setImageType(OF_IMAGE_COLOR_ALPHA);
-	auto & pixels = cloudStamp.getPixels();
-
-	for (int y = 0; y < pixels.getHeight(); y++) {
-		for (int x = 0; x < pixels.getWidth(); x++) {
-			const auto alpha = pixels.getColor(x, y).a;
-			pixels.setColor(x, y, ofColor(255, 255, 255, alpha));
-		}
-	}
-
-	cloudStamp.update();
-
-	// 雲ブラシの関数実装
-	engine.brush.setStamp(
-		[this](const glm::vec2 & center, float radius) {
-			const auto key = std::make_pair(center.x, center.y);
-			auto angleIt = stampAngles.find(key);
-
-			if (angleIt == stampAngles.end()) {
-				angleIt = stampAngles.emplace(key, ofRandom(0.0f, 360.0f)).first;
+	editor.paint.engine.brush.setDetailedStamp(
+		[this](const paintcore::StampInfo & stamp) {
+			if (!cloudStampLoaded) {
+				return;
 			}
 
-			const float angle = angleIt->second;
-			const float width = radius * 2.0f;
+			const float width = stamp.radius * 2.0f;
 			const float height = width * cloudStamp.getHeight() / cloudStamp.getWidth();
 
 			ofPushMatrix();
-			ofTranslate(center.x, center.y);
-			ofRotateDeg(angle);
+			ofTranslate(stamp.position.x, stamp.position.y);
+			ofRotateDeg(stamp.angleDegrees);
 
 			cloudStamp.draw(
 				-width * 0.5f,
 				-height * 0.5f,
 				width,
 				height);
+
 			ofPopMatrix();
 		});
 }
@@ -82,53 +63,24 @@ void ofApp::update() {
 //--------------------------------------------------------------
 void ofApp::draw() {
 	ofBackground(35);
+	editor.draw();
 
-	ofPushStyle();
-	ofFill();
+	if (!cloudStampLoaded) {
+		ofPushStyle();
 
-	// この背景色は画面表示用
-	ofSetColor(backgroundGray.get());
-	ofDrawRectangle(canvasRect);
-
-	ofPushMatrix();
-	ofTranslate(canvasRect.x, canvasRect.y);
-
-	if (isDrawing) {
-		paintcore::CanvasRenderer::drawNormalImage(
-			engine.getStrokePreview());
-	} else {
-		paintcore::CanvasRenderer::drawNormalImage(canvas);
-	}
-
-	ofPopMatrix();
-	ofPopStyle();
-
-	// CanvasRendererが設定した合成方式をGUI用に戻す
-	ofEnableAlphaBlending();
-	ofSetColor(255);
-	gui.draw();
-
-	colorPicker.drawPicker();
-
-	// pick()には、色の取得と選択位置の円を描く処理がある。
-	// 毎フレーム呼ぶことで、選択位置の表示と色相変更を反映する。
-	colorPicker.pick(
-		colorPickerPosition.x,
-		colorPickerPosition.y);
-
-	colorPicker.drawHueSlider();
-
-	if (!stampLoaded) {
-		ofSetColor(255);
+		ofSetColor(255, 80, 80);
 		ofDrawBitmapString(
 			"Failed to load bin/data/cloudTexture1.png",
-			canvasRect.x + 20,
-			canvasRect.y + 30);
+			10,
+			editor.paint.canvasHeight + 30);
+
+		ofPopStyle();
 	}
 }
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key) {
+	editor.keyPressed(key);
 }
 
 //--------------------------------------------------------------
@@ -141,82 +93,33 @@ void ofApp::mouseMoved(int x, int y) {
 
 //--------------------------------------------------------------
 void ofApp::mouseDragged(int x, int y, int button) {
-	if (button != OF_MOUSE_BUTTON_LEFT) {
-		return;
-	}
-
-	if (isPickingColor) {
-		colorPickerPosition = glm::vec2(x, y);
-		return;
-	}
-
-	if (!isDrawing) {
-		return;
-	}
-
-	ofPushStyle();
-	engine.addStrokePoint(toCanvasPosition(x, y));
-	engine.drawStroke(strokeSettings);
-	ofPopStyle();
+	editor.mouseDragged(x, y, button);
 }
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button) {
-	if (button != OF_MOUSE_BUTTON_LEFT || isDrawing) {
+	if (button != OF_MOUSE_BUTTON_LEFT
+		|| editor.paint.isDrawing()) {
 		return;
 	}
 
-	if (colorPickerRect.inside(x, y)) {
-		isPickingColor = true;
-		colorPickerPosition = glm::vec2(x, y);
+	const glm::vec2 canvasPosition = editor.view.toCanvas(glm::vec2(x, y));
+
+	const bool insideCanvas = canvasPosition.x >= 0.0f
+		&& canvasPosition.y >= 0.0f
+		&& canvasPosition.x < editor.paint.canvasWidth
+		&& canvasPosition.y < editor.paint.canvasHeight;
+
+	if (insideCanvas && !cloudStampLoaded) {
 		return;
 	}
 
-	if (!stampLoaded
-		|| gui.getShape().inside(x, y)
-		|| !canvasRect.inside(x, y)) {
-		return;
-	}
-
-	strokeSettings.size = brushWidth.get() / 50.0f;
-	strokeSettings.color = colorPicker.getColor();
-	strokeSettings.color.a = static_cast<unsigned char>(
-		brushOpacity.get() * 255.0f + 0.5f);
-	strokeSettings.isPen = true;
-	strokeSettings.eraserAlpha = 255.0f;
-
-	// ストロークを開始するたびに角度を決め直す。
-	stampAngles.clear();
-
-	const float spacingPx = brushWidth.get() * brushSpacing.get();
-
-	ofPushStyle();
-
-	engine.beginStroke(
-		toCanvasPosition(x, y),
-		canvas,
-		spacingPx);
-	engine.drawStroke(strokeSettings);
-	ofPopStyle();
-
-	isDrawing = true;
+	editor.mousePressed(x, y, button);
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseReleased(int x, int y, int button) {
-	if (button != OF_MOUSE_BUTTON_LEFT) {
-		return;
-	}
-
-	if (isPickingColor) {
-		colorPickerPosition = glm::vec2(x, y);
-		isPickingColor = false;
-		return;
-	}
-
-	if (isDrawing) {
-		finishCurrentStroke();
-	}
+	editor.mouseReleased(x, y, button);
 }
 
 //--------------------------------------------------------------
@@ -240,24 +143,8 @@ void ofApp::dragEvent(ofDragInfo dragInfo) {
 }
 
 //--------------------------------------------------------------
-glm::vec2 ofApp::toCanvasPosition(int x, int y) const {
-	return glm::vec2(
-		static_cast<float>(x) - canvasRect.x,
-		static_cast<float>(y) - canvasRect.y);
-}
-
-//--------------------------------------------------------------
-void ofApp::finishCurrentStroke() {
-	if (!isDrawing) {
-		return;
+void ofApp::mouseScrolled(int x, int y, float scrollX, float scrollY) {
+	if (x >= editor.paint.canvasWidth) {
+		editor.mouseScrolled(scrollY);
 	}
-
-	ofPushStyle();
-
-	engine.drawStroke(strokeSettings);
-	engine.commitStroke(canvas);
-
-	ofPopStyle();
-
-	isDrawing = false;
 }
