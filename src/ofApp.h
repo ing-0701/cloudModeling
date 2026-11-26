@@ -27,8 +27,18 @@ class ofApp : public ofBaseApp{
 		void mouseScrolled(int x, int y, float scrollX, float scrollY);
 
 	private:
-		paintcoreui::PaintEditor editor;
+		paintcoreui::PaintEditor editor {
+			[] {
+				paintcore::PaintSettings settings;
+				settings.width = 600;
+				settings.height = 450;
+				return settings;
+			}()
+		};
 
 		std::shared_ptr<ofImage> cloudStamp;
 		bool cloudStampLoaded = false;
+
+		ofCamera camera;
+		ofLight light;
 };
