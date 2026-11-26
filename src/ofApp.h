@@ -3,6 +3,8 @@
 #include "ofMain.h"
 #include "PaintEditor.h"
 
+#include <memory>
+
 class ofApp : public ofBaseApp{
 
 	public:
@@ -27,6 +29,6 @@ class ofApp : public ofBaseApp{
 	private:
 		paintcoreui::PaintEditor editor;
 
-		ofImage cloudStamp;
+		std::shared_ptr<ofImage> cloudStamp;
 		bool cloudStampLoaded = false;
 };

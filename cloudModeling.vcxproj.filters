@@ -55,9 +55,6 @@
     <ClCompile Include="ofxPaintCore\src\ColorPicker.cpp">
       <Filter>addons\ofxPaintCore\src</Filter>
     </ClCompile>
-    <ClCompile Include="ofxPaintCore\src\PaintDocument.cpp">
-      <Filter>addons\ofxPaintCore\src</Filter>
-    </ClCompile>
     <ClCompile Include="ofxPaintCore\src\PaintSession.cpp">
       <Filter>addons\ofxPaintCore\src</Filter>
     </ClCompile>
@@ -149,9 +146,6 @@
     <ClInclude Include="ofxPaintCore\src\ColorPicker.h">
       <Filter>addons\ofxPaintCore\src</Filter>
     </ClInclude>
-    <ClInclude Include="ofxPaintCore\src\CanvasView.h">
-      <Filter>addons\ofxPaintCore\src</Filter>
-    </ClInclude>
     <ClInclude Include="ofxPaintCore\src\LayerExtension.h">
       <Filter>addons\ofxPaintCore\src</Filter>
     </ClInclude>
@@ -162,6 +156,12 @@
       <Filter>addons\ofxPaintCore\src</Filter>
     </ClInclude>
     <ClInclude Include="ofxPaintCore\src\PaintSettings.h">
+      <Filter>addons\ofxPaintCore\src</Filter>
+    </ClInclude>
+    <ClInclude Include="ofxPaintCore\src\BrushControls.h">
+      <Filter>addons\ofxPaintCore\src</Filter>
+    </ClInclude>
+    <ClInclude Include="ofxPaintCore\src\LayerList.h">
       <Filter>addons\ofxPaintCore\src</Filter>
     </ClInclude>
   </ItemGroup>

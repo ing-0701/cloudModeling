@@ -5,7 +5,7 @@ void ofApp::setup() {
 	ofLogToConsole();
 
 	ofSetWindowTitle("Cloud Modeling - Paint");
-	ofSetWindowShape(1360, 900);
+	ofSetWindowShape(1360, 800);
 	ofSetVerticalSync(true);
 
 	// GUI作成前にブラシの初期値を設定する。
@@ -21,39 +21,47 @@ void ofApp::setup() {
 	settings.spacingPx = 36.0f;
 
 	editor.paint.setBrushSettings(settings);
-	editor.setup();
 
-	// 初期直径120px、最小5px、最大400px。
-	editor.setBrushSizeRange(2.4f, 0.1f, 8.0f);
+	// UIの配置はcloudModeling側で指定する。
+	const float uiX = editor.paint.canvasWidth + 8.0f;
+	const float uiWidth = 256.0f;
+	const float columnGap = 16.0f;
 
-	cloudStampLoaded = cloudStamp.load("cloudTexture1.png");
+	paintcoreui::PaintEditorLayout layout;
+
+	// カラーピッカーは従来と同じ位置。
+	layout.colorPickerPosition = { uiX, 20.0f };
+
+	// カラーピッカーとHueスライダーの下。
+	layout.brushPanelPosition = { uiX, 324.0f };
+
+	// カラーピッカーの右隣。
+	// 追加・削除ボタンと、その下の一覧をまとめて配置する。
+	layout.layerAreaPosition = {
+		uiX + uiWidth + columnGap,
+		20.0f
+	};
+	layout.visibleLayerRows = 8;
+	layout.backgroundWidth = uiWidth;
+
+	// レイヤー操作ボタン68px + 一覧(1行24px)の下に16px空ける。
+	layout.backgroundButtonPosition = {
+		layout.layerAreaPosition.x,
+		layout.layerAreaPosition.y
+			+ 68.0f + 24.0f * layout.visibleLayerRows + 16.0f
+	};
+
+	editor.setup(layout);
+
+	cloudStamp = std::make_shared<ofImage>();
+	cloudStampLoaded = cloudStamp->load("cloudTexture1.png");
 
 	if (!cloudStampLoaded) {
 		ofLogError("cloudModeling")
 			<< "Failed to load bin/data/cloudTexture1.png";
 	}
 
-	editor.paint.engine.brush.setDetailedStamp(
-		[this](const paintcore::StampInfo & stamp) {
-			if (!cloudStampLoaded) {
-				return;
-			}
-
-			const float width = stamp.radius * 2.0f;
-			const float height = width * cloudStamp.getHeight() / cloudStamp.getWidth();
-
-			ofPushMatrix();
-			ofTranslate(stamp.position.x, stamp.position.y);
-			ofRotateDeg(stamp.angleDegrees);
-
-			cloudStamp.draw(
-				-width * 0.5f,
-				-height * 0.5f,
-				width,
-				height);
-
-			ofPopMatrix();
-		});
+	editor.paint.engine.brush.setImageStamp(cloudStamp);
 }
 
 //--------------------------------------------------------------
@@ -103,12 +111,10 @@ void ofApp::mousePressed(int x, int y, int button) {
 		return;
 	}
 
-	const glm::vec2 canvasPosition = editor.view.toCanvas(glm::vec2(x, y));
-
-	const bool insideCanvas = canvasPosition.x >= 0.0f
-		&& canvasPosition.y >= 0.0f
-		&& canvasPosition.x < editor.paint.canvasWidth
-		&& canvasPosition.y < editor.paint.canvasHeight;
+	const bool insideCanvas = x >= 0
+		&& y >= 0
+		&& x < editor.paint.canvasWidth
+		&& y < editor.paint.canvasHeight;
 
 	if (insideCanvas && !cloudStampLoaded) {
 		return;
@@ -143,8 +149,7 @@ void ofApp::dragEvent(ofDragInfo dragInfo) {
 }
 
 //--------------------------------------------------------------
-void ofApp::mouseScrolled(int x, int y, float scrollX, float scrollY) {
-	if (x >= editor.paint.canvasWidth) {
-		editor.mouseScrolled(scrollY);
-	}
+void ofApp::mouseScrolled(
+	int x, int y, float scrollX, float scrollY) {
+	editor.mouseScrolled(scrollY);
 }
