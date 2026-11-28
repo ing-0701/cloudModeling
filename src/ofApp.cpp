@@ -5,7 +5,6 @@ void ofApp::setup() {
 	ofLogToConsole();
 
 	ofSetWindowTitle("Cloud Modeling - Paint");
-	ofSetWindowShape(1360, 800);
 	ofSetVerticalSync(true);
 
 	// GUI作成前にブラシの初期値を設定する。
@@ -24,8 +23,7 @@ void ofApp::setup() {
 
 	// UIの配置はcloudModeling側で指定する。
 	const float uiX = editor.paint.canvasWidth + 8.0f;
-	const float uiWidth = 256.0f;
-	const float columnGap = 16.0f;
+	const float uiWidth = 170.0f;
 
 	paintcoreui::PaintEditorLayout layout;
 
@@ -35,13 +33,14 @@ void ofApp::setup() {
 	// カラーピッカーとHueスライダーの下。
 	layout.brushPanelPosition = { uiX, 324.0f };
 
-	// カラーピッカーの右隣。
+	// Brushパネルの下。
 	// 追加・削除ボタンと、その下の一覧をまとめて配置する。
 	layout.layerAreaPosition = {
-		uiX + uiWidth + columnGap,
-		20.0f
+		uiX,
+		500.0f
 	};
-	layout.visibleLayerRows = 8;
+	// 背景ピッカー展開時の下端を998pxに収める。
+	layout.visibleLayerRows = 3;
 	layout.backgroundWidth = uiWidth;
 
 	// レイヤー操作ボタン68px + 一覧(1行24px)の下に16px空ける。
@@ -51,6 +50,7 @@ void ofApp::setup() {
 			+ 68.0f + 24.0f * layout.visibleLayerRows + 16.0f
 	};
 
+	editor.paint.setBackground(ofColor(50, 50, 50));
 	editor.setup(layout);
 
 	cloudStamp = std::make_shared<ofImage>();
@@ -62,10 +62,34 @@ void ofApp::setup() {
 	}
 
 	editor.paint.engine.brush.setImageStamp(cloudStamp);
+
+	// ここまでがペイントソフト
+
+	camera.setPosition(0, 0, 600);
+	camera.setControlArea(ofRectangle(
+		0, canvasSettings.height,
+		canvasSettings.width, canvasSettings.height));
+	light.setSpotlight();
+	light.setPosition(-250, 300, 350);
+	light.enable();
+	plane.set(100, 100, 10, 10);
+	plane.setPosition(0, 0, 0);
+	mesh = plane.getMesh();
+
+	ofFbo::Settings s3D;
+	s3D.width = canvasSettings.width;
+	s3D.height = canvasSettings.height;
+
+	fbo3D.allocate(s3D);
 }
 
 //--------------------------------------------------------------
 void ofApp::update() {
+	for (int i = 0; i < mesh.getVertices().size(); i++) {
+		glm::vec3 pos = mesh.getVertices()[i];
+		pos.z = ofRandom(-100, 100);
+		mesh.setVertex(i, pos);
+	}
 }
 
 //--------------------------------------------------------------
@@ -84,6 +108,32 @@ void ofApp::draw() {
 
 		ofPopStyle();
 	}
+
+	// 以下3D
+
+	fbo3D.begin();
+	ofPushStyle();
+
+	ofClear(0, 0, 0, 0);
+
+	camera.begin();
+	ofEnableDepthTest();
+	ofEnableLighting();
+
+	plane.draw();
+
+	ofDisableLighting();
+	ofDisableDepthTest();
+	camera.end();
+
+	ofPopStyle();
+	fbo3D.end();
+
+
+	ofPushStyle();
+	ofSetColor(255);
+	fbo3D.draw(0, canvasSettings.height, canvasSettings.width, canvasSettings.height);
+	ofPopStyle();
 }
 
 //--------------------------------------------------------------

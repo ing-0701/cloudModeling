@@ -27,8 +27,25 @@ class ofApp : public ofBaseApp{
 		void mouseScrolled(int x, int y, float scrollX, float scrollY);
 
 	private:
-		paintcoreui::PaintEditor editor;
+		paintcoreui::PaintEditor editor {
+			[] {
+				paintcore::PaintSettings settings;
+				settings.width = 600;
+				settings.height = 450;
+				return settings;
+			}()
+		};
 
 		std::shared_ptr<ofImage> cloudStamp;
 		bool cloudStampLoaded = false;
+
+		// キャンバスの設定
+		// 縦横比とか参考にするために
+		const paintcore::PaintSettings & canvasSettings = editor.paint.getSettings();
+
+		ofEasyCam camera;
+		ofLight light;
+		ofPlanePrimitive plane;
+		ofFbo fbo3D;
+		ofMesh mesh;
 };
