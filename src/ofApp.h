@@ -39,6 +39,13 @@ class ofApp : public ofBaseApp{
 		std::shared_ptr<ofImage> cloudStamp;
 		bool cloudStampLoaded = false;
 
-		ofCamera camera;
+		// キャンバスの設定
+		// 縦横比とか参考にするために
+		const paintcore::PaintSettings & canvasSettings = editor.paint.getSettings();
+
+		ofEasyCam camera;
 		ofLight light;
+		ofPlanePrimitive plane;
+		ofFbo fbo3D;
+		ofMesh mesh;
 };

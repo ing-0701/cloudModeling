@@ -50,6 +50,7 @@ void ofApp::setup() {
 			+ 68.0f + 24.0f * layout.visibleLayerRows + 16.0f
 	};
 
+	editor.paint.setBackground(ofColor(50, 50, 50));
 	editor.setup(layout);
 
 	cloudStamp = std::make_shared<ofImage>();
@@ -62,41 +63,39 @@ void ofApp::setup() {
 
 	editor.paint.engine.brush.setImageStamp(cloudStamp);
 
+	// ここまでがペイントソフト
+
 	camera.setPosition(0, 0, 600);
+	camera.setControlArea(ofRectangle(
+		0, canvasSettings.height,
+		canvasSettings.width, canvasSettings.height));
+	light.setSpotlight();
 	light.setPosition(-250, 300, 350);
+	light.enable();
+	plane.set(100, 100, 10, 10);
+	plane.setPosition(0, 0, 0);
+	mesh = plane.getMesh();
+
+	ofFbo::Settings s3D;
+	s3D.width = canvasSettings.width;
+	s3D.height = canvasSettings.height;
+
+	fbo3D.allocate(s3D);
 }
 
 //--------------------------------------------------------------
 void ofApp::update() {
+	for (int i = 0; i < mesh.getVertices().size(); i++) {
+		glm::vec3 pos = mesh.getVertices()[i];
+		pos.z = ofRandom(-100, 100);
+		mesh.setVertex(i, pos);
+	}
 }
 
 //--------------------------------------------------------------
 void ofApp::draw() {
 	ofBackground(35);
 	editor.draw();
-
-	const ofRectangle viewport(0, editor.paint.canvasHeight, 600, 450);
-
-	ofPushStyle();
-
-	// 3D表示領域の背景
-	ofSetColor(24);
-	ofDrawRectangle(viewport);
-
-	camera.begin(viewport);
-	ofEnableDepthTest();
-	ofEnableLighting();
-	light.enable();
-
-	ofSetColor(220);
-	ofDrawSphere(0, 0, 0, 150);
-
-	light.disable();
-	ofDisableLighting();
-	ofDisableDepthTest();
-	camera.end();
-
-	ofPopStyle();
 
 	if (!cloudStampLoaded) {
 		ofPushStyle();
@@ -109,6 +108,32 @@ void ofApp::draw() {
 
 		ofPopStyle();
 	}
+
+	// 以下3D
+
+	fbo3D.begin();
+	ofPushStyle();
+
+	ofClear(0, 0, 0, 0);
+
+	camera.begin();
+	ofEnableDepthTest();
+	ofEnableLighting();
+
+	plane.draw();
+
+	ofDisableLighting();
+	ofDisableDepthTest();
+	camera.end();
+
+	ofPopStyle();
+	fbo3D.end();
+
+
+	ofPushStyle();
+	ofSetColor(255);
+	fbo3D.draw(0, canvasSettings.height, canvasSettings.width, canvasSettings.height);
+	ofPopStyle();
 }
 
 //--------------------------------------------------------------
